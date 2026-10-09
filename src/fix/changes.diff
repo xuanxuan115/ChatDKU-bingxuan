@@ -1,0 +1,31 @@
+--- upload/config.py
++++ school_embedding_fix/src/chatdku/config.py
+@@ -178,12 +178,15 @@
+         """Resolve auto mode while keeping an explicit provider authoritative."""
+         if self.embedding_provider != "auto":
+             return self.embedding_provider
++        if self.embedding_base_url and self.openai_embedding_model:
++            return "openai"
+         if self.embedding_base_url and self.tei_embedding_model:
+             return "tei"
+         if self.local_embedding_model:
+             return "local"
+         raise ValueError(
+-            "Configure a local embedding model or a TEI model and endpoint."
++            "Configure a local model, a TEI endpoint/model, or an OpenAI-compatible "
++            "endpoint/model. Set CHATDKU_EMBEDDING_PROVIDER explicitly to select a mode."
+         )
+ 
+     @property
+--- upload/pyproject(1).toml
++++ school_embedding_fix/pyproject.toml
+@@ -6,6 +6,9 @@
+ requires-python = ">=3.13"
+ 
+ dependencies = [
++    "openai>=1.0.0",
++    "httpx>=0.27.0",
++    "pydantic>=2.0.0",
+     "dspy>=3.4.0",
+     "llama-index>=0.14.25",
+     "llama-index-embeddings-huggingface>=0.8.0",
