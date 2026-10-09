@@ -37,3 +37,10 @@ This repository contains the public ChatDKU agent harness. It is a local-first i
 The repository provides code and documentation only. It does not provide a hosted chat service, DKU source documents, model endpoints, API keys, or other credentials. Anyone running it supplies their own documents and compatible language-model and embedding services.
 
 Maintainers can find operational documentation in [the ingestion guide](docs/ingestion.md) and [the agent guide](docs/agent.md).
+
+## How to use
+Open the folder with Terminal and input
+```
+python -m uv run --no-sync agent
+```
+with DKU internet or VPN
